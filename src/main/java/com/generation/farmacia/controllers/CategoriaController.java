@@ -16,49 +16,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.farmacia.models.Categoria;
+import com.generation.farmacia.repositories.CategoriaRepository;
 
 @RestController
-@RequestMapping ("/categorias")
-@CrossOrigin ("*")
+@RequestMapping("/categorias")
+@CrossOrigin("*")
 public class CategoriaController {
 
 	@Autowired
-	private CategoriaController repository;
-	
+	private CategoriaRepository repository;
+
 	@GetMapping
-	public ResponseEntity <List<Categoria>> getAll() {
+	public ResponseEntity<List<Categoria>> getAll() {
 		return ResponseEntity.ok(repository.findAll());
 	}
-	
+
 	@GetMapping("/titulo/{nome}")
-	public ResponseEntity <List<Categoria>> getByName(@PathVariable String nome){
-	List <Categoria> nome = repository.findAllByNomeContainingIgnoreCase(nome);
-		
-		if (nome.isEmpty()) {
+	public ResponseEntity<List<Categoria>> getByName(@PathVariable String nome) {
+		List<Categoria> nome_Categoria = repository.findAllByNomeContainingIgnoreCase(nome);
+
+		if (nome_Categoria.isEmpty()) {
 			return ResponseEntity.status(204).build();
 		} else {
-			return ResponseEntity.status(200).body(nome);
+			return ResponseEntity.status(200).body(nome_Categoria);
 		}
 	}
-	
-	@GetMapping ("/{id}")
-	public ResponseEntity <Categoria> getById(@PathVariable long id) {
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Categoria> getById(@PathVariable long id) {
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
-	
-	@PostMapping ("/post")
-	public ResponseEntity <Categoria> post(@RequestBody Categoria categoria) {
+
+	@PostMapping("/post")
+	public ResponseEntity<Categoria> post(@RequestBody Categoria categoria) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(categoria));
 	}
 
-	@PutMapping ("/put")
-	public ResponseEntity <Categoria> put(@RequestBody Categoria categoria) {
+	@PutMapping("/put")
+	public ResponseEntity<Categoria> put(@RequestBody Categoria categoria) {
 		return ResponseEntity.status(HttpStatus.OK).body(repository.save(categoria));
 	}
-	
-	@DeleteMapping ("/delete/{id}")
-	public void delete (@PathVariable long id) {
+
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable long id) {
 		repository.deleteById(id);
-	}
 	}
 }
