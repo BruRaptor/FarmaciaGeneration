@@ -68,10 +68,9 @@ public class ProdutoController {
 	 * Pega informações da tabela baseado no nome do produto
 	 * 
 	 */
-	@GetMapping("/produto/{produto}")
+	@GetMapping("/nome-produto/{nome}")
 	public ResponseEntity<List<Produto>> getByName(@PathVariable String nome) {
 		List<Produto> nome_produto = repository.findAllByNomeContainingIgnoreCase(nome);
-
 		if (nome_produto.isEmpty()) {
 			return ResponseEntity.status(204).build();
 		} else {
@@ -80,8 +79,8 @@ public class ProdutoController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<Produto> savePost(@Valid @RequestBody Produto newPost) {
-		return ResponseEntity.status(201).body(repository.save(newPost));
+	public ResponseEntity<Produto> savePost(@Valid @RequestBody Produto produto) {
+		return ResponseEntity.status(201).body(repository.save(produto));
 	}
 
 	/*
@@ -115,5 +114,5 @@ public class ProdutoController {
 			return ResponseEntity.status(404).build();
 		}
 	}
- 
+
 }

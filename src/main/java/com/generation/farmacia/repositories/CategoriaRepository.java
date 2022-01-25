@@ -7,6 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.generation.farmacia.models.Categoria;
 
+/*
+ * @Author Igor Miramisawa 
+ * 
+ */
+
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
 	public List<Categoria> findAllByNomeContainingIgnoreCase (String nome);
