@@ -33,7 +33,7 @@ public class CategoriaController {
 
 	@GetMapping("/titulo/{nome}")
 	public ResponseEntity<List<Categoria>> getByName(@PathVariable String nome) {
-		List<Categoria> nome_Categoria = repository.findAllByNomeContainingIgnoreCase(nome);
+		List<Categoria> nome_Categoria = repository.findAllByProdutoContainingIgnoreCase(nome);
 
 		if (nome_Categoria.isEmpty()) {
 			return ResponseEntity.status(204).build();

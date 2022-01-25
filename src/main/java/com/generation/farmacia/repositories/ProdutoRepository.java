@@ -7,8 +7,13 @@ import org.springframework.stereotype.Repository;
 
 import com.generation.farmacia.models.Produto;
 
+/*
+ * @Author Igor Miramisawa
+ * 
+ */
+
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long>{
-	public List <Produto> findAllByProdutoContainingIgnoreCase(String produto);
+	public List <Produto> findAllByNomeContainingIgnoreCase(String produto);
 	public List <Produto> findAll();
 }
